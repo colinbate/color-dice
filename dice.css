@@ -1,6 +1,8 @@
 body, html {
   height: 100%;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 body {
@@ -35,7 +37,7 @@ body {
   align-items: center;
   justify-content: center;
   transform: translate(0, 0);
-  transition: all 0.4s ease-in;
+  transition: all 0.4s ease-out;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -65,6 +67,59 @@ body {
     box-shadow: 0 0 4vh 2vh rgba(0,0,0,0.1),
                 inset 0 0 2vh 0.2vh rgba(0,0,0,0.1);
   }
+}
+
+.deg0 .die {
+  transform: translate(0, 0) rotate(-130deg);
+}
+
+.deg1 .die {
+  transform: translate(0, 0) rotate(-95deg);
+}
+
+.deg2 .die {
+  transform: translate(0, 0) rotate(-53deg);
+}
+
+.deg3 .die {
+  transform: translate(0, 0) rotate(-17deg);
+}
+
+.deg4 .die {
+  transform: translate(0, 0) rotate(5deg);
+}
+
+.deg5 .die {
+  transform: translate(0, 0) rotate(27deg);
+}
+
+.deg6 .die {
+  transform: translate(0, 0) rotate(51deg);
+}
+
+.deg7 .die {
+  transform: translate(0, 0) rotate(84deg);
+}
+
+.deg8 .die {
+  transform: translate(0, 0) rotate(126deg);
+}
+
+.deg9 .die {
+  transform: translate(0, 0) rotate(164deg);
+}
+
+.deg10 .die {
+  transform: translate(0, 0) rotate(203deg);
+}
+
+.deg11 .die {
+  transform: translate(0, 0) rotate(239deg);
+}
+
+body.hide .die {
+  transform: translate(-75vw, -75vh) rotate(0);
+  transition: translate 0s ease-in-out;
 }
 
 .dot {
@@ -247,11 +302,6 @@ body {
   .color {
     border-radius: 5vh;
   }
-}
-
-body.hide .die {
-  transform: translate(-75vw, -75vh);
-  transition: translate 0s ease-in-out;
 }
 
 #toggleType {

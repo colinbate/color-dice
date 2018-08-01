@@ -27,10 +27,15 @@ function randColor() {
   return colors[randSide()];
 }
 
+function randDegree() {
+  return 'deg' + Math.floor(rand() * 12);
+}
+
 const dieColor = document.getElementById('cc');
 const dieNum = document.getElementById('ddots');
 const toggleBtn = document.getElementById('toggleType');
 const dieType = document.getElementById('type');
+const click = document.getElementById('click');
 
 function setRandomColor() {
   dieColor.style.backgroundColor = randColor();
@@ -56,6 +61,7 @@ document.body.addEventListener('click', function(ev) {
     document.body.classList.add('hide');
     setTimeout(function() {
       setRandomSide();
+      click.className = 'click ' + randDegree();
       document.body.classList.remove('hide');
     }, 100);
   } else {
