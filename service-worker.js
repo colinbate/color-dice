@@ -1,4 +1,4 @@
-let version = 1.0;
+let version = 1.1;
 
 let cacheName = "DiceCacheV" + version;
 
@@ -6,7 +6,8 @@ let filesToCache = [
   "/",
   "/index.html",
   "/dice.js",
-  "/dice.css"
+  "/dice.css",
+  "/wood.jpg"
 ];
 
 self.addEventListener('install', function(event) {
