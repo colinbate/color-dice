@@ -19,14 +19,30 @@ function rand() {
   }
 }
 
+function randSide() {
+  return Math.floor(rand() * 6);
+}
+
 function randColor() {
-  return colors[Math.floor(rand() * 6)];
+  return colors[randSide()];
 }
 
 const dieColor = document.getElementById('cc');
+const dieNum = document.getElementById('ddots');
+const toggleBtn = document.getElementById('toggleType');
+const dieType = document.getElementById('type');
 
 function setRandomColor() {
   dieColor.style.backgroundColor = randColor();
+}
+
+function setRandomNumber() {
+  dieNum.className = 'die n' + (randSide() + 1);
+}
+
+function setRandomSide() {
+  setRandomColor();
+  setRandomNumber();
 }
 
 const close = document.getElementById('clear');
@@ -39,11 +55,25 @@ document.body.addEventListener('click', function(ev) {
   if (!document.body.classList.contains('hide')) {
     document.body.classList.add('hide');
     setTimeout(function() {
-      setRandomColor();
+      setRandomSide();
       document.body.classList.remove('hide');
     }, 100);
   } else {
-    setRandomColor();
+    setRandomSide();
     document.body.classList.remove('hide');
   }
 });
+
+toggleBtn.addEventListener('click', function (ev) {
+  if (document.body.classList.contains('t-color')) {
+    document.body.classList.remove('t-color');
+    document.body.classList.add('t-number');
+    dieType.innerText = 'Numbers';
+  } else {
+    document.body.classList.remove('t-number');
+    document.body.classList.add('t-color');
+    dieType.innerText = 'Colors';
+  }
+  
+  ev.stopPropagation();
+})
