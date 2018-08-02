@@ -11,8 +11,12 @@ body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
-.t-number #dcolors,
-.t-color #ddots {
+.t-number .colordie,
+.t-color .dotdie {
+  display: none;
+}
+
+[data-dice-count="1"] .die[data-die="1"] {
   display: none;
 }
 
@@ -20,6 +24,7 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -41,6 +46,7 @@ body {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  z-index: 5;
 }
 
 .die::after {
@@ -48,12 +54,28 @@ body {
   position: absolute;
   width: 98%;
   height: 98%;
-  border-radius: 5vw;
+  border-radius: 10%;
   box-shadow: 0 0 4vw 2vw rgba(0,0,0,0.1),
               inset 0 0 2vw 0.2vw rgba(0,0,0,0.1);
 }
 
+[data-dice-count="2"] .die[data-die="0"] {
+  margin: 0 0 8vw 0;
+}
+
+[data-dice-count="2"] .die[data-die="1"] {
+  margin: 8vw 0 0 0;
+}
+
+[data-dice-count="2"] .die {
+  width: 40vw;
+  height: 40vw;
+}
+
 @media screen and (orientation: landscape) {
+  .click {
+    flex-direction: row;
+  }
   .die {
     width: 50vh;
     height: 50vh;
@@ -63,57 +85,68 @@ body {
   }
 
   .die::after {
-    border-radius: 5vh;
     box-shadow: 0 0 4vh 2vh rgba(0,0,0,0.1),
                 inset 0 0 2vh 0.2vh rgba(0,0,0,0.1);
   }
+  [data-dice-count="2"] .die[data-die="0"] {
+    margin: 0 8vh 0 0;
+  }
+  
+  [data-dice-count="2"] .die[data-die="1"] {
+    margin: 0 0 0 8vh;
+  }
+
+  [data-dice-count="2"] .die {
+    width: 40vh;
+    height: 40vh ;
+  }
 }
 
-.deg0 .die {
+.deg0.die {
   transform: translate(0, 0) rotate(-130deg);
 }
 
-.deg1 .die {
+.deg1.die {
   transform: translate(0, 0) rotate(-95deg);
 }
 
-.deg2 .die {
+.deg2.die {
   transform: translate(0, 0) rotate(-53deg);
 }
 
-.deg3 .die {
+.deg3.die {
   transform: translate(0, 0) rotate(-17deg);
 }
 
-.deg4 .die {
+.deg4.die {
   transform: translate(0, 0) rotate(5deg);
 }
 
-.deg5 .die {
+.deg5.die {
   transform: translate(0, 0) rotate(27deg);
 }
 
-.deg6 .die {
+.deg6.die {
   transform: translate(0, 0) rotate(51deg);
 }
 
-.deg7 .die {
+.deg7.die {
   transform: translate(0, 0) rotate(84deg);
 }
 
-.deg8 .die {
+.deg8.die {
   transform: translate(0, 0) rotate(126deg);
 }
 
-.deg9 .die {
+.deg9.die {
   transform: translate(0, 0) rotate(164deg);
 }
 
-.deg10 .die {
+.deg10.die {
   transform: translate(0, 0) rotate(203deg);
 }
 
-.deg11 .die {
+.deg11.die {
   transform: translate(0, 0) rotate(239deg);
 }
 
@@ -123,9 +156,9 @@ body.hide .die {
 }
 
 .dot {
-  width: 8.3333vw;
-  height: 8.3333vw;
-  margin: 8.333vw;
+  width: 16.6666%;
+  height: 16.6666%;
+  margin: 16.6666%;
   background-color: #444;
   border-radius: 50%;
   box-shadow: inset 0.75vw 0.75vw 2vw 0.2vw rgba(0,0,0,0.3);
@@ -133,175 +166,123 @@ body.hide .die {
 
 @media screen and (orientation: landscape) {
   .dot {
-    width: 8.3333vh;
-    height: 8.3333vh;
-    margin: 8.333vh;
     box-shadow: inset 0.75vh 0.75vh 2vh 0.2vh rgba(0,0,0,0.3);
   }
 }
 
-#ddots.n1 .dot2,
-#ddots.n1 .dot3,
-#ddots.n1 .dot4,
-#ddots.n1 .dot5,
-#ddots.n1 .dot6,
-#ddots.n2 .dot3,
-#ddots.n2 .dot4,
-#ddots.n2 .dot5,
-#ddots.n2 .dot6,
-#ddots.n3 .dot4,
-#ddots.n3 .dot5,
-#ddots.n3 .dot6,
-#ddots.n4 .dot5,
-#ddots.n4 .dot6,
-#ddots.n5 .dot6
+.dotdie.n1 .dot2,
+.dotdie.n1 .dot3,
+.dotdie.n1 .dot4,
+.dotdie.n1 .dot5,
+.dotdie.n1 .dot6,
+.dotdie.n2 .dot3,
+.dotdie.n2 .dot4,
+.dotdie.n2 .dot5,
+.dotdie.n2 .dot6,
+.dotdie.n3 .dot4,
+.dotdie.n3 .dot5,
+.dotdie.n3 .dot6,
+.dotdie.n4 .dot5,
+.dotdie.n4 .dot6,
+.dotdie.n5 .dot6
  {
   display: none;
 }
 
 /* DIE: 2 */
-#ddots.n2 .dot1 {
+.dotdie.n2 .dot1 {
   align-self: flex-start;
 }
 
-#ddots.n2 .dot2 {
+.dotdie.n2 .dot2 {
   align-self: flex-end;
 }
 
 /* DIE: 3 */
-#ddots.n3 .dot1 {
+.dotdie.n3 .dot1 {
   align-self: flex-start;
   margin-right: 0;
   margin-bottom: 0;
 }
 
-#ddots.n3 .dot2 {
-  margin: 4.1666vw;
+.dotdie.n3 .dot2 {
+  margin: 8.3333%;
 }
 
-#ddots.n3 .dot3 {
+.dotdie.n3 .dot3 {
   align-self: flex-end;
   margin-top: 0;
   margin-left: 0;
 }
 
 /* DIE: 4 */
-#ddots.n4 {
+.dotdie.n4 {
   flex-wrap: wrap;
 }
 
 /* DIE: 5 */
-#ddots.n5 {
+.dotdie.n5 {
   flex-wrap: wrap;
 }
 
-#ddots.n5 .dot1 {
+.dotdie.n5 .dot1 {
   margin-right: 0;
-  margin-bottom: 12.5vw;
+  margin-bottom: 25%;
 }
 
-#ddots.n5 .dot2 {
-  margin: 20.8333vw 4.1666vw 0;
+.dotdie.n5 .dot2 {
+  margin: 41.6666% 8.3333% 0;
 }
 
-#ddots.n5 .dot3 {
+.dotdie.n5 .dot3 {
   margin-left: 0;
-  margin-bottom: 12.5vw;
+  margin-bottom: 25%;
 }
 
-#ddots.n5 .dot4 {
-  margin-top: 4.1666vw;
+.dotdie.n5 .dot4 {
+  margin-top: 8.3333%;
 }
 
-#ddots.n5 .dot5 {
-  margin-top: 4.1666vw;
+.dotdie.n5 .dot5 {
+  margin-top: 8.3333%;
 }
 
 /* DIE: 6 */
-#ddots.n6 {
+.dotdie.n6 {
   flex-wrap: wrap;
 }
 
-#ddots.n6 .dot1 {
-  margin-bottom: 4.1666vw;
+.dotdie.n6 .dot1 {
+  margin-bottom: 8.3333%;
 }
 
-#ddots.n6 .dot2 {
-  margin-bottom: 4.1666vw;
+.dotdie.n6 .dot2 {
+  margin-bottom: 8.3333%;
 }
 
-#ddots.n6 .dot3 {
+.dotdie.n6 .dot3 {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-#ddots.n6 .dot4 {
+.dotdie.n6 .dot4 {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-#ddots.n6 .dot5 {
-  margin-top: 4.1666vw;
+.dotdie.n6 .dot5 {
+  margin-top: 8.3333%;
 }
 
-#ddots.n6 .dot6 {
-  margin-top: 4.1666vw;
-}
-
-@media screen and (orientation: landscape) {
-  #ddots.n3 .dot2 {
-    margin: 4.1666vh;
-  }
-
-  #ddots.n5 .dot1 {
-    margin-bottom: 12.5vh;
-  }
-  
-  #ddots.n5 .dot2 {
-    margin: 20.8333vh 4.1666vh 0;
-  }
-  
-  #ddots.n5 .dot3 {
-    margin-bottom: 12.5vh;
-  }
-  
-  #ddots.n5 .dot4 {
-    margin-top: 4.1666vh;
-  }
-  
-  #ddots.n5 .dot5 {
-    margin-top: 4.1666vh;
-  }
-  
-  /* DIE: 6 */
-  #ddots.n6 .dot1 {
-    margin-bottom: 4.1666vh;
-  }
-  
-  #ddots.n6 .dot2 {
-    margin-bottom: 4.1666vh;
-  }
-  
-  #ddots.n6 .dot5 {
-    margin-top: 4.1666vh;
-  }
-  
-  #ddots.n6 .dot6 {
-    margin-top: 4.1666vh;
-  }
+.dotdie.n6 .dot6 {
+  margin-top: 8.3333%;
 }
 
 .color {
-  border-radius: 5vw;
+  border-radius: 10%;
   background-color: red;
   width: 90%;
   height: 90%;
-}
-
-@media screen and (orientation: landscape) {
-  .color {
-    border-radius: 5vh;
-  }
 }
 
 #toggleType {
@@ -314,7 +295,7 @@ body.hide .die {
 }
 
 #toggleType #type {
-  font-size: 6vw;
+  font-size: 5vw;
   margin-left: 2vw;
 }
 
@@ -330,7 +311,7 @@ body.hide .die {
   }
   
   #toggleType #type {
-    font-size: 6vh;
+    font-size: 5vh;
     margin-left: 2vh;
   }
   
@@ -375,5 +356,111 @@ body.hide .die {
     height: 10vh;
     top: 3vh;
     right: 3vh;
+  }
+}
+
+#toggleCount {
+  position: absolute;
+  top: 3vw;
+  left: 50vw;
+}
+
+@media screen and (orientation: landscape) {
+  #toggleCount {
+    top: 3vh;
+  }
+}
+
+.checkbox-label {
+  display: block;
+  background: #f3f3f3;
+  height: 10vw;
+  width: 18vw;
+  border-radius: 10vw;
+  margin: 0 auto;
+  position: relative;
+  font-size: 5vw;
+  line-height: 10vw;
+  box-shadow: 0 0 0 2px #dddddd;
+  transition: .25s ease-in-out;
+}
+.checkbox-label .on {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  left: 3vw;
+  opacity: 0;
+  color: #fff;
+  transition: .25s ease-in-out;
+}
+.checkbox-label .off {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  left: 12vw;
+  text-align: right;
+  opacity: 1;
+  color: #444;
+  transition: .25s ease-in-out;
+}
+.checkbox-label:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  height: 10vw;
+  width: 10vw;
+  background: white;
+  transition: .25s ease-in-out;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px #dddddd;
+}
+
+.checkbox {
+  position: absolute;
+  left: -5000px;
+  transition: .25s ease-in-out;
+}
+.checkbox:checked + .checkbox-label {
+  background: #000;
+  box-shadow: 0 0 0 2px #000;
+  transition: .25s ease-in-out;
+}
+.checkbox:checked + .checkbox-label .on {
+  opacity: 1;
+  transition: .25s ease-in-out;
+}
+.checkbox:checked + .checkbox-label .off {
+  opacity: 0;
+  transition: .25s ease-in-out;
+}
+.checkbox:checked + .checkbox-label:before {
+  left: 8vw;
+  transition: .25s ease-in-out;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px #000;
+}
+
+@media screen and (orientation: landscape) {
+  .checkbox-label {
+    height: 10vh;
+    width: 18vh;
+    border-radius: 10vh;
+    font-size: 5vh;
+    line-height: 10vh;
+  }
+  .checkbox-label:before {
+    height: 10vh;
+    width: 10vh;
+  }
+  .checkbox-label .off {
+    left: 12vh;
+  }
+  .checkbox-label .on {
+    left: 3vh;
+  }
+  .checkbox:checked + .checkbox-label:before {
+    left: 8vh;
   }
 }

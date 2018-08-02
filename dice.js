@@ -31,18 +31,28 @@ function randDegree() {
   return 'deg' + Math.floor(rand() * 12);
 }
 
-const dieColor = document.getElementById('cc');
-const dieNum = document.getElementById('ddots');
+const diceColor = document.getElementsByClassName('color');
+const diceColorDie = document.getElementsByClassName('colordie');
+const diceNum = document.getElementsByClassName('dotdie');
+
 const toggleBtn = document.getElementById('toggleType');
 const dieType = document.getElementById('type');
 const click = document.getElementById('click');
+const secondDice = document.getElementById('secondDice');
 
 function setRandomColor() {
-  dieColor.style.backgroundColor = randColor();
+  for (let die = 0; die < diceColor.length; die += 1) {
+    diceColor[die].style.backgroundColor = randColor();
+  }
+  for (let die2 = 0; die2 < diceColorDie.length; die2 += 1) {
+    diceColorDie[die2].className = 'colordie die ' + randDegree();
+  }
 }
 
 function setRandomNumber() {
-  dieNum.className = 'die n' + (randSide() + 1);
+  for (let die = 0; die < diceColor.length; die += 1) {
+    diceNum[die].className = 'dotdie die n' + (randSide() + 1) + ' ' + randDegree();
+  }
 }
 
 function setRandomSide() {
@@ -50,8 +60,12 @@ function setRandomSide() {
   setRandomNumber();
 }
 
-const close = document.getElementById('clear');
-close.addEventListener('click', function(ev) {
+function setDieCount(num) {
+  document.body.setAttribute('data-dice-count', num);
+}
+
+const closeBtn = document.getElementById('clear');
+closeBtn.addEventListener('click', function(ev) {
   document.body.classList.add('hide');
   ev.stopPropagation();
 });
@@ -61,7 +75,6 @@ document.body.addEventListener('click', function(ev) {
     document.body.classList.add('hide');
     setTimeout(function() {
       setRandomSide();
-      click.className = 'click ' + randDegree();
       document.body.classList.remove('hide');
     }, 100);
   } else {
@@ -80,6 +93,18 @@ toggleBtn.addEventListener('click', function (ev) {
     document.body.classList.add('t-color');
     dieType.innerText = 'Colors';
   }
-  
-  ev.stopPropagation();
-})
+  setTimeout(function() {
+    document.body.classList.add('hide');
+  }, 0);
+});
+
+secondDice.addEventListener('change', function(ev) {
+  if (ev.target.checked) {
+    document.body.classList.add('hide');
+    setDieCount(2);
+  } else {
+    setDieCount(1);
+  }
+});
+
+setDieCount(1);
