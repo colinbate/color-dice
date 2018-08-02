@@ -1,6 +1,6 @@
 {
-  "name": "dice",
-  "short_name": "dice",
+  "name": "Dice",
+  "short_name": "Dice",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
@@ -30,6 +30,10 @@
     {
       "src": "icons/android/android-launchericon-48-48.png",
       "sizes": "48x48"
+    },
+    {
+      "src": "icons/ios/ios-landingpage-750-1334.png",
+      "sizes": "750x1334"
     },
     {
       "src": "icons/ios/ios-appicon-1024-1024.png",
