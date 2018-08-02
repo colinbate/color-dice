@@ -100,11 +100,13 @@ toggleBtn.addEventListener('click', function (ev) {
 
 secondDice.addEventListener('change', function(ev) {
   if (ev.target.checked) {
-    document.body.classList.add('hide');
     setDieCount(2);
   } else {
     setDieCount(1);
   }
+  setTimeout(function() {
+    document.body.classList.add('hide');
+  }, 0);
 });
 
 setDieCount(1);
