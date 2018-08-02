@@ -9,6 +9,17 @@ const colors = [
 
 const MAX_INT = 2147483647;
 
+const PREF_TYPE = 'type';
+const PREF_COUNT = 'count';
+
+function savePref(key, value) {
+  window.localStorage.setItem('pref:' + key, JSON.stringify(value));
+}
+
+function getPref(key) {
+  return JSON.parse(window.localStorage.getItem('pref:' + key) || 'null');
+}
+
 function rand() {
   try {
     const a = new Uint32Array(1);
@@ -60,8 +71,15 @@ function setRandomSide() {
   setRandomNumber();
 }
 
-function setDieCount(num) {
+function setDieCount(num, skipSave) {
   document.body.setAttribute('data-dice-count', num);
+  if (!skipSave) {
+    savePref(PREF_COUNT, num);
+  } else {
+    if (num + '' === '2') {
+      secondDice.checked = true;
+    }
+  }
 }
 
 const closeBtn = document.getElementById('clear');
@@ -83,15 +101,30 @@ document.body.addEventListener('click', function(ev) {
   }
 });
 
+const TYPE_COLOR = 't-color';
+const TYPE_NUMBER = 't-number';
+const OTHER = {
+  [TYPE_COLOR]: TYPE_NUMBER,
+  [TYPE_NUMBER]: TYPE_COLOR
+};
+const TYPE_LABEL = {
+  [TYPE_COLOR]: 'Colors',
+  [TYPE_NUMBER]: 'Numbers'
+};
+function setDieType(type, skipSave) {
+  document.body.classList.remove(OTHER[type]);
+  document.body.classList.add(type);
+  dieType.innerText = TYPE_LABEL[type];
+  if (!skipSave) {
+    savePref(PREF_TYPE, type);
+  }
+}
+
 toggleBtn.addEventListener('click', function (ev) {
-  if (document.body.classList.contains('t-color')) {
-    document.body.classList.remove('t-color');
-    document.body.classList.add('t-number');
-    dieType.innerText = 'Numbers';
+  if (document.body.classList.contains(TYPE_COLOR)) {
+    setDieType(TYPE_NUMBER);
   } else {
-    document.body.classList.remove('t-number');
-    document.body.classList.add('t-color');
-    dieType.innerText = 'Colors';
+    setDieType(TYPE_COLOR);
   }
   setTimeout(function() {
     document.body.classList.add('hide');
@@ -109,4 +142,5 @@ secondDice.addEventListener('change', function(ev) {
   }, 0);
 });
 
-setDieCount(1);
+setDieCount(getPref(PREF_COUNT) || 1, true);
+setDieType(getPref(PREF_TYPE) || TYPE_NUMBER, true);
