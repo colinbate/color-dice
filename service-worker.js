@@ -1,4 +1,4 @@
-let version = 1.2;
+let version = 2.0;
 
 let cacheName = "DiceCacheV" + version;
 
