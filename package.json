@@ -1,6 +1,6 @@
 {
   "name": "color-dice",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A small app to replace the lost colour die that came with a board game.",
   "main": "dice.js",
   "scripts": {
@@ -34,7 +34,8 @@
       "wood.jpg",
       "dice.min.css",
       "dice.min.js",
-      "icon-dice.css"
+      "icon-dice.css",
+      "long-press.min.js"
     ]
   },
   "bugs": {

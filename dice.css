@@ -1,12 +1,10 @@
 .click {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 #board {
@@ -19,15 +17,26 @@
   justify-content: space-evenly;
   cursor: pointer;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
-#board.init::after {
-  content: "Tap to roll dice";
+#board.init::before {
+  content: "Tap to roll dice.";
   position: absolute;
-  font-size: 8vw;
+  font-size: 7vw;
   width: 100%;
   text-align: center;
-  bottom: 15vh;
+  bottom: 17vh;
+  color: rgba(0, 0, 0, 0.5)
+}
+#board.init::after {
+  content: "Shift-click or long press a die to lock it";
+  position: absolute;
+  font-size: 5vw;
+  width: 100%;
+  text-align: center;
+  bottom: 11vh;
   color: rgba(0, 0, 0, 0.5)
 }
 
@@ -59,6 +68,11 @@
               inset 0 0 2vmin 0.2vmin rgba(0,0,0,0.1);
 }
 
+#board .die.lock {
+  box-shadow: 1vmin 1vmin 8vmin 0 rgba(0,0,0,0.7),
+              inset -0.5vmin -0.5vmin 2vmin 0 rgba(0,0,0,0.1);
+}
+
 .d-2 .die,
 .d-3 .die,
 .d-4 .die {
@@ -87,58 +101,58 @@
 }
 
 .deg0.die {
-  transform: translate(0, 0) rotate(-130deg);
+  transform: rotate(-130deg);
 }
 
 .deg1.die {
-  transform: translate(0, 0) rotate(-95deg);
+  transform: rotate(-95deg);
 }
 
 .deg2.die {
-  transform: translate(0, 0) rotate(-53deg);
+  transform: rotate(-53deg);
 }
 
 .deg3.die {
-  transform: translate(0, 0) rotate(-17deg);
+  transform: rotate(-17deg);
 }
 
 .deg4.die {
-  transform: translate(0, 0) rotate(5deg);
+  transform: rotate(5deg);
 }
 
 .deg5.die {
-  transform: translate(0, 0) rotate(27deg);
+  transform: rotate(27deg);
 }
 
 .deg6.die {
-  transform: translate(0, 0) rotate(51deg);
+  transform: rotate(51deg);
 }
 
 .deg7.die {
-  transform: translate(0, 0) rotate(84deg);
+  transform: rotate(84deg);
 }
 
 .deg8.die {
-  transform: translate(0, 0) rotate(126deg);
+  transform: rotate(126deg);
 }
 
 .deg9.die {
-  transform: translate(0, 0) rotate(164deg);
+  transform: rotate(164deg);
 }
 
 .deg10.die {
-  transform: translate(0, 0) rotate(203deg);
+  transform: rotate(203deg);
 }
 
 .deg11.die {
-  transform: translate(0, 0) rotate(239deg);
+  transform: rotate(239deg);
 }
 
 .deg45.die {
-  transform: translate(0, 0) rotate(45deg);
+  transform: rotate(45deg);
 }
 
-body.hide .die {
+body.hide .die:not(.lock) {
   transform: translate(-95vw, -95vh) rotate(0);
   transition: translate 0s ease-in-out;
 }

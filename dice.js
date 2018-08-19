@@ -3,6 +3,9 @@
 
 const MAX_INT = 2147483647;
 const TRIGGER_KEY = 'triggerRoll';
+const HIDE = 'hide';
+const LOCK = 'lock';
+const CLICK = 'click';
 
 function rand() {
   try {
@@ -30,53 +33,9 @@ const board = document.getElementById('board');
 const nav = document.getElementById('nav');
 const hamburger = document.getElementById('hamb');
 
-hamburger.addEventListener('click', function(ev) {
+hamburger.addEventListener(CLICK, function(ev) {
   nav.classList.toggle('is-active');
   ev.stopPropagation();
-});
-
-function setRandomSide(el) {
-  el.className = 'die ' + randSide() + ' ' + randDegree();
-}
-
-const diceSet = [];
-function setRandomSides() {
-  for (let d = 0; d < diceSet.length; d += 1) {
-    setRandomSide(diceSet[d]);
-  }
-}
-
-function clearDie() {
-  document.body.classList.add('hide');
-}
-
-let init = true;
-function rollDice() {
-  if (init) {
-    init = false;
-    board.classList.remove('init');
-  }
-  if (!document.body.classList.contains('hide')) {
-    document.body.classList.add('hide');
-    setTimeout(function() {
-      setRandomSides();
-      document.body.classList.remove('hide');
-    }, 100);
-  } else {
-    setRandomSides();
-    document.body.classList.remove('hide');
-  }
-}
-
-window.addEventListener('storage', function (sev) {
-  if (sev.key === TRIGGER_KEY) {
-    rollDice();
-  }
-});
-
-document.body.addEventListener('click', function(ev) {
-  triggerLocalRolls();
-  rollDice();
 });
 
 function setClassOfType(el, className, typePrefix) {
@@ -88,6 +47,74 @@ function setClassOfType(el, className, typePrefix) {
   }
   el.classList.add(className);
 }
+
+function setRandomSide(el) {
+  if (!el.classList.contains(LOCK)) {
+    el.className = 'die ' + randSide() + ' ' + randDegree();
+  }
+}
+
+const diceSet = [];
+function setRandomSides() {
+  for (let d = 0; d < diceSet.length; d += 1) {
+    setRandomSide(diceSet[d]);
+  }
+}
+
+function clearDice() {
+  const locked = board.querySelectorAll('.die.' + LOCK);
+  for (let k = 0; k < locked.length; k += 1) {
+    locked[k].classList.remove(LOCK);
+  }
+  document.body.classList.add(HIDE);
+}
+
+let init = true;
+function rollDice() {
+  if (init) {
+    init = false;
+    board.classList.remove('init');
+  }
+  if (!document.body.classList.contains(HIDE)) {
+    document.body.classList.add(HIDE);
+    setTimeout(function() {
+      setRandomSides();
+      document.body.classList.remove(HIDE);
+    }, 100);
+  } else {
+    setRandomSides();
+    document.body.classList.remove(HIDE);
+  }
+}
+
+let longPressed = false;
+function lockingDie(ev) {
+  if (ev.target && ev.target.classList.contains('die') && (ev.shiftKey || ev.type === 'long-press')) {
+    if (!ev.target.classList.contains('degx')) {
+      setClassOfType(ev.target, 'degx', 'deg');
+    }
+    ev.target.classList.toggle(LOCK);
+    return true;
+  }
+  if (longPressed) {
+    longPressed = false;
+    return true;
+  }
+  return false;
+}
+
+window.addEventListener('storage', function (sev) {
+  if (sev.key === TRIGGER_KEY) {
+    rollDice();
+  }
+});
+
+document.body.addEventListener(CLICK, function(ev) {
+  if (!lockingDie(ev)) {
+    triggerLocalRolls();
+    rollDice();
+  }
+});
 
 const PREFS_KEY = 'prefs';
 const prefs = (function() {
@@ -141,15 +168,15 @@ function createDice() {
 }
 
 const menu = document.getElementById('menu');
-menu.addEventListener('click', function(ev) {
+menu.addEventListener(CLICK, function(ev) {
   const target = ev.target;
   if (target.id === 'clear') {
-    clearDie();
+    clearDice();
   } else if (target.value) {
     const prefix = target.parentElement.dataset.prefix;
     const klass = prefix + target.value;
     setTimeout(function() {
-      document.body.classList.add('hide');
+      clearDice();
       setTimeout(function() {
         setDieProp(klass, prefix);
         createDice();
@@ -160,17 +187,43 @@ menu.addEventListener('click', function(ev) {
 });
 
 function lazyLoadStyles(file) {
-  const link = document.createElement("link");
+  const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = file;
   link.type = 'text/css';
   document.body.appendChild(link);
 }
 
+function lazyLoadScript(file, cb) {
+  const scr = document.createElement('script');
+  scr.src = file;
+  scr.onload = cb;
+  document.body.appendChild(scr);
+}
+
+function detectTouch() {
+  if (typeof window !== 'undefined') {
+    return 'ontouchstart' in window ||
+      window.navigator.maxTouchPoints > 0 ||
+      window.navigator.msMaxTouchPoints > 0 ||
+      (window.DocumentTouch && document instanceof DocumentTouch);
+  }
+}
+
 prefs.load();
 createDice();
 setTimeout(function () {
   lazyLoadStyles('icon-dice.css');
+  if (detectTouch()) {
+    lazyLoadScript('long-press.min.js', function() {
+      board.addEventListener('long-press', function(ev) {
+        lockingDie(ev);
+        longPressed = true;
+        ev.stopPropagation();
+        ev.preventDefault();
+      });
+    });
+  }
 }, 0);
 
 }());

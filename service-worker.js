@@ -1,4 +1,4 @@
-let version = 3.0;
+let version = 4.0;
 
 let cacheName = "DiceCacheV" + version;
 
@@ -8,6 +8,7 @@ let filesToCache = [
   "/dice.min.js",
   "/dice.min.css",
   "/icon-dice.css",
+  "/long-press.min.js",
   "/wood.jpg"
 ];
 
