@@ -1,25 +1,3 @@
-body, html {
-  height: 100%;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  color: white;
-  background: url(wood.jpg);
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-}
-
-.t-number .colordie,
-.t-color .dotdie {
-  display: none;
-}
-
-[data-dice-count="1"] .die[data-die="1"] {
-  display: none;
-}
-
 .click {
   width: 100%;
   height: 100%;
@@ -31,13 +9,35 @@ body {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+#board {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+#board.init::after {
+  content: "Tap to roll dice";
+  position: absolute;
+  font-size: 8vw;
+  width: 100%;
+  text-align: center;
+  bottom: 15vh;
+  color: rgba(0, 0, 0, 0.5)
+}
+
 .die {
   background-color: #fff;
-  width: 50vw;
-  height: 50vw;
-  border-radius: 0.75vw;
-  box-shadow: 0.75vw 0.75vw 5vw 0 rgba(0,0,0,0.2),
-              inset -0.5vw -0.5vw 2vw 0vw rgba(0,0,0,0.1);
+  width: 50vmin;
+  height: 50vmin;
+  border-radius: 0.75vmin;
+  box-shadow: 0.75vmin 0.75vmin 5vmin 0 rgba(0,0,0,0.2),
+              inset -0.5vmin -0.5vmin 2vmin 0 rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,50 +55,34 @@ body {
   width: 98%;
   height: 98%;
   border-radius: 10%;
-  box-shadow: 0 0 4vw 2vw rgba(0,0,0,0.1),
-              inset 0 0 2vw 0.2vw rgba(0,0,0,0.1);
+  box-shadow: 0 0 4vmin 2vmin rgba(0,0,0,0.1),
+              inset 0 0 2vmin 0.2vmin rgba(0,0,0,0.1);
 }
 
-[data-dice-count="2"] .die[data-die="0"] {
-  margin: 0 0 8vw 0;
+.d-2 .die,
+.d-3 .die,
+.d-4 .die {
+  width: 32vmin;
+  height: 32vmin;
+  margin: 8vh 8vw;
 }
 
-[data-dice-count="2"] .die[data-die="1"] {
-  margin: 8vw 0 0 0;
-}
-
-[data-dice-count="2"] .die {
-  width: 40vw;
-  height: 40vw;
+.d-5 .die,
+.d-6 .die,
+.d-7 .die,
+.d-8 .die,
+.d-9 .die {
+  width: 22vmin;
+  height: 22vmin;
+  margin: 5.5vh 5.5vw;
 }
 
 @media screen and (orientation: landscape) {
   .click {
     flex-direction: row;
   }
-  .die {
-    width: 50vh;
-    height: 50vh;
-    border-radius: 0.75vh;
-    box-shadow: 0.75vh 0.75vh 5vh 0 rgba(0,0,0,0.2),
-               inset -0.5vh -0.5vh 2vh 0vh rgba(0,0,0,0.1);
-  }
-
-  .die::after {
-    box-shadow: 0 0 4vh 2vh rgba(0,0,0,0.1),
-                inset 0 0 2vh 0.2vh rgba(0,0,0,0.1);
-  }
-  [data-dice-count="2"] .die[data-die="0"] {
-    margin: 0 8vh 0 0;
-  }
-  
-  [data-dice-count="2"] .die[data-die="1"] {
-    margin: 0 0 0 8vh;
-  }
-
-  [data-dice-count="2"] .die {
-    width: 40vh;
-    height: 40vh ;
+  #board {
+    flex-direction: row;
   }
 }
 
@@ -150,8 +134,12 @@ body {
   transform: translate(0, 0) rotate(239deg);
 }
 
+.deg45.die {
+  transform: translate(0, 0) rotate(45deg);
+}
+
 body.hide .die {
-  transform: translate(-75vw, -75vh) rotate(0);
+  transform: translate(-95vw, -95vh) rotate(0);
   transition: translate 0s ease-in-out;
 }
 
@@ -161,306 +149,230 @@ body.hide .die {
   margin: 16.6666%;
   background-color: #444;
   border-radius: 50%;
-  box-shadow: inset 0.75vw 0.75vw 2vw 0.2vw rgba(0,0,0,0.3);
+  box-shadow: inset 0.75vmin 0.75vmin 2vmin 0.2vmin rgba(0,0,0,0.3);
 }
 
-@media screen and (orientation: landscape) {
-  .dot {
-    box-shadow: inset 0.75vh 0.75vh 2vh 0.2vh rgba(0,0,0,0.3);
-  }
-}
-
-.dotdie.n1 .dot2,
-.dotdie.n1 .dot3,
-.dotdie.n1 .dot4,
-.dotdie.n1 .dot5,
-.dotdie.n1 .dot6,
-.dotdie.n2 .dot3,
-.dotdie.n2 .dot4,
-.dotdie.n2 .dot5,
-.dotdie.n2 .dot6,
-.dotdie.n3 .dot4,
-.dotdie.n3 .dot5,
-.dotdie.n3 .dot6,
-.dotdie.n4 .dot5,
-.dotdie.n4 .dot6,
-.dotdie.n5 .dot6
+.t-dot .die.n1 .dot2,
+.t-dot .die.n1 .dot3,
+.t-dot .die.n1 .dot4,
+.t-dot .die.n1 .dot5,
+.t-dot .die.n1 .dot6,
+.t-dot .die.n2 .dot3,
+.t-dot .die.n2 .dot4,
+.t-dot .die.n2 .dot5,
+.t-dot .die.n2 .dot6,
+.t-dot .die.n3 .dot4,
+.t-dot .die.n3 .dot5,
+.t-dot .die.n3 .dot6,
+.t-dot .die.n4 .dot5,
+.t-dot .die.n4 .dot6,
+.t-dot .die.n5 .dot6
  {
   display: none;
 }
 
 /* DIE: 2 */
-.dotdie.n2 .dot1 {
+.t-dot .die.n2 .dot1 {
   align-self: flex-start;
 }
 
-.dotdie.n2 .dot2 {
+.t-dot .die.n2 .dot2 {
   align-self: flex-end;
 }
 
 /* DIE: 3 */
-.dotdie.n3 .dot1 {
+.t-dot .die.n3 .dot1 {
   align-self: flex-start;
   margin-right: 0;
   margin-bottom: 0;
 }
 
-.dotdie.n3 .dot2 {
+.t-dot .die.n3 .dot2 {
   margin: 8.3333%;
 }
 
-.dotdie.n3 .dot3 {
+.t-dot .die.n3 .dot3 {
   align-self: flex-end;
   margin-top: 0;
   margin-left: 0;
 }
 
 /* DIE: 4 */
-.dotdie.n4 {
+.t-dot .die.n4 {
   flex-wrap: wrap;
 }
 
 /* DIE: 5 */
-.dotdie.n5 {
+.t-dot .die.n5 {
   flex-wrap: wrap;
 }
 
-.dotdie.n5 .dot1 {
+.t-dot .die.n5 .dot1 {
   margin-right: 0;
   margin-bottom: 25%;
 }
 
-.dotdie.n5 .dot2 {
+.t-dot .die.n5 .dot2 {
   margin: 41.6666% 8.3333% 0;
 }
 
-.dotdie.n5 .dot3 {
+.t-dot .die.n5 .dot3 {
   margin-left: 0;
   margin-bottom: 25%;
 }
 
-.dotdie.n5 .dot4 {
+.t-dot .die.n5 .dot4 {
   margin-top: 8.3333%;
 }
 
-.dotdie.n5 .dot5 {
+.t-dot .die.n5 .dot5 {
   margin-top: 8.3333%;
 }
 
 /* DIE: 6 */
-.dotdie.n6 {
+.t-dot .die.n6 {
   flex-wrap: wrap;
 }
 
-.dotdie.n6 .dot1 {
+.t-dot .die.n6 .dot1 {
   margin-bottom: 8.3333%;
 }
 
-.dotdie.n6 .dot2 {
+.t-dot .die.n6 .dot2 {
   margin-bottom: 8.3333%;
 }
 
-.dotdie.n6 .dot3 {
+.t-dot .die.n6 .dot3 {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.dotdie.n6 .dot4 {
+.t-dot .die.n6 .dot4 {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.dotdie.n6 .dot5 {
+.t-dot .die.n6 .dot5 {
   margin-top: 8.3333%;
 }
 
-.dotdie.n6 .dot6 {
+.t-dot .die.n6 .dot6 {
   margin-top: 8.3333%;
 }
 
-.color {
+.die .color {
   border-radius: 10%;
-  background-color: red;
   width: 90%;
   height: 90%;
 }
 
-#toggleType {
-  position: absolute;
-  top: 3vw;
-  left: 3vw;
-  color: #000;
-  display: flex;
-  align-items: center;
+.t-color .die.n1 .color {
+  background-color: orange;
 }
 
-#toggleType #type {
-  font-size: 5vw;
-  margin-left: 2vw;
+.t-color .die.n2 .color {
+  background-color: #39f;
 }
 
-#toggleType .size {
-  width: 10vw;
-  height: 10vw;
+.t-color .die.n3 .color {
+  background-color: yellow;
 }
 
-@media screen and (orientation: landscape) {
-  #toggleType {
-    top: 3vh;
-    left: 3vh;
-  }
-  
-  #toggleType #type {
-    font-size: 5vh;
-    margin-left: 2vh;
-  }
-  
-  #toggleType .size {
-    width: 10vh;
-    height: 10vh;
-  }
+.t-color .die.n4 .color {
+  background-color: pink;
 }
 
-#clear {
-  background: black;
-  width: 10vw;
-  height: 10vw;
-  position: absolute;
-  top: 3vw;
-  right: 3vw;
-  border-radius: 50%;
+.t-color .die.n5 .color {
+  background-color: red;
 }
 
-#clear::before, #clear::after {
-  content: "";
-  position: absolute;
-  width: 80%;
-  height: 10%;
-  border-radius: 10px;
-  background: white;
-  top: 45%;
-  left: 10%;
+.t-color .die.n6 .color {
+  background-color: white;
 }
 
-#clear::before {
-  transform: rotate(45deg);
-}
-
-#clear::after {
-  transform: rotate(-45deg);
-}
-
-@media screen and (orientation: landscape) {
-  #clear {
-    width: 10vh;
-    height: 10vh;
-    top: 3vh;
-    right: 3vh;
-  }
-}
-
-#toggleCount {
-  position: absolute;
-  top: 3vw;
-  left: 50vw;
-}
-
-@media screen and (orientation: landscape) {
-  #toggleCount {
-    top: 3vh;
-  }
-}
-
-.checkbox-label {
-  display: block;
-  background: #f3f3f3;
-  height: 10vw;
-  width: 18vw;
-  border-radius: 10vw;
-  margin: 0 auto;
-  position: relative;
-  font-size: 5vw;
-  line-height: 10vw;
-  box-shadow: 0 0 0 2px #dddddd;
-  transition: .25s ease-in-out;
-}
-.checkbox-label .on {
-  display: block;
-  position: absolute;
-  z-index: 0;
-  left: 3vw;
-  opacity: 0;
-  color: #fff;
-  transition: .25s ease-in-out;
-}
-.checkbox-label .off {
-  display: block;
-  position: absolute;
-  z-index: 0;
-  left: 12vw;
-  text-align: right;
-  opacity: 1;
-  color: #444;
-  transition: .25s ease-in-out;
-}
-.checkbox-label:before {
-  content: '';
-  display: block;
-  position: absolute;
-  z-index: 1;
-  top: 0;
+.menu {
   left: 0;
-  border-radius: 50%;
-  height: 10vw;
-  width: 10vw;
-  background: white;
-  transition: .25s ease-in-out;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px #dddddd;
+  width: 100%;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 7;
+  padding: 3vw;
+  font-size: 3.5vw;
+  box-sizing: border-box;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
-.checkbox {
-  position: absolute;
-  left: -5000px;
-  transition: .25s ease-in-out;
-}
-.checkbox:checked + .checkbox-label {
-  background: #000;
-  box-shadow: 0 0 0 2px #000;
-  transition: .25s ease-in-out;
-}
-.checkbox:checked + .checkbox-label .on {
-  opacity: 1;
-  transition: .25s ease-in-out;
-}
-.checkbox:checked + .checkbox-label .off {
-  opacity: 0;
-  transition: .25s ease-in-out;
-}
-.checkbox:checked + .checkbox-label:before {
-  left: 8vw;
-  transition: .25s ease-in-out;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px #000;
+.menu > div {
+  margin: 2vw 1vw;
+  display: flex;
+  justify-content: space-between;
 }
 
-@media screen and (orientation: landscape) {
-  .checkbox-label {
-    height: 10vh;
-    width: 18vh;
-    border-radius: 10vh;
-    font-size: 5vh;
-    line-height: 10vh;
+.menu button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 1vw;
+  padding: 2vw 3vw;
+  background-color: lightskyblue;
+  color: #000;
+  font-size: 3vw;
+}
+
+.menu button:focus {
+  outline: none;
+}
+
+.menu .b1 button {
+  width: 100%;
+}
+
+.menu .b3 button {
+  width: 32%;
+}
+
+.menu .b9 button {
+   width: 10%;
+}
+
+@media screen and (min-width: 720px) {
+  .menu {
+    width: 700px;
+    left: 50%;
+    margin-left: -350px;
+    padding: 18px;
+    font-size: 24.5px;
   }
-  .checkbox-label:before {
-    height: 10vh;
-    width: 10vh;
+
+  .menu > div {
+    margin: 14px 21px;
   }
-  .checkbox-label .off {
-    left: 12vh;
+
+  .menu button {
+    border-radius: 7px;
+    padding: 14px 21px;
+    font-size: 21px;
   }
-  .checkbox-label .on {
-    left: 3vh;
-  }
-  .checkbox:checked + .checkbox-label:before {
-    left: 8vh;
-  }
+}
+
+.is-active .menu {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.t-dot button[value="dot"],
+.t-color button[value="color"],
+.t-cna button[value="cna"],
+.d-1 button[value="1"],
+.d-2 button[value="2"],
+.d-3 button[value="3"],
+.d-4 button[value="4"],
+.d-5 button[value="5"],
+.d-6 button[value="6"],
+.d-7 button[value="7"],
+.d-8 button[value="8"],
+.d-9 button[value="9"]
+ {
+  background-color: steelblue;
+  color: #fff;
 }

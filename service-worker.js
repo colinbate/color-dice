@@ -1,12 +1,13 @@
-let version = 2.4;
+let version = 3.0;
 
 let cacheName = "DiceCacheV" + version;
 
 let filesToCache = [
   "/",
   "/index.html",
-  "/dice.js",
-  "/dice.css",
+  "/dice.min.js",
+  "/dice.min.css",
+  "/icon-dice.css",
   "/wood.jpg"
 ];
 
