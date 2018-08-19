@@ -33,7 +33,8 @@
       "service-worker.js",
       "wood.jpg",
       "dice.min.css",
-      "dice.min.js"
+      "dice.min.js",
+      "icon-dice.css"
     ]
   },
   "bugs": {
