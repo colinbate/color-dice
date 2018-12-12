@@ -341,8 +341,8 @@ body.hide .die:not(.lock) {
   width: 100%;
 }
 
-.menu .b3 button {
-  width: 32%;
+.menu .b4 button {
+  width: 24%;
 }
 
 .menu .b9 button {
@@ -377,6 +377,7 @@ body.hide .die:not(.lock) {
 .t-dot button[value="dot"],
 .t-color button[value="color"],
 .t-cna button[value="cna"],
+.t-poker button[value="poker"],
 .d-1 button[value="1"],
 .d-2 button[value="2"],
 .d-3 button[value="3"],
