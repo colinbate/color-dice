@@ -36,7 +36,20 @@
       "dice.min.js",
       "icon-dice.css",
       "long-press.min.js"
-    ]
+    ],
+    "static": {
+      "headers": [
+        {
+          "source": "service-worker.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=600"
+            }
+          ]
+        }
+      ]
+    }
   },
   "bugs": {
     "url": "https://github.com/colinbate/color-dice/issues"

@@ -9,18 +9,24 @@ let filesToCache = [
   "/dice.min.css",
   "/icon-dice.css",
   "/long-press.min.js",
-  "/wood.jpg"
+  "/wood.jpg",
+  "/manifest.json"
 ];
 
 self.addEventListener('install', function(event) {
-  event.waitUntil(caches.open(cacheName).then((cache) =>{
-    return cache.addAll(filesToCache);
-  }));
-  console.log('service worker installed...');
+  event.waitUntil(
+    caches.open(cacheName).then((cache) =>{
+      return cache.addAll(filesToCache);
+    }).then(() => {
+      console.log('[SW] service worker installed...');
+      self.skipWaiting();
+    })
+  );
+  
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log(event.request.url);
+  console.log('[SW] ' + event.request.url);
   event.respondWith(
     caches.match(event.request).then(function(response) {
       return response || fetch(event.request);
@@ -29,16 +35,18 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(e) {
-  console.log('service worker: Activate');
+  console.log('[SW] Activate');
   e.waitUntil(
     caches.keys().then(function(keyList) {
       return Promise.all(keyList.map(function(key) {
         if (key !== cacheName) {
-          console.log('service worker: Removing old cache', key);
+          console.log('[SW] Removing old cache', key);
           return caches.delete(key);
         }
       }));
+    }).then(function() {
+      console.log('[SW] Claiming clients for ', cacheName);
+      return self.clients.claim();
     })
   );
-  return self.clients.claim();
 });
