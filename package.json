@@ -7,12 +7,11 @@
     "start": "serve",
     "build": "npm run build:css && npm run build:js",
     "build:css": "csso dice.css -o dice.min.css",
-    "build:js": "minify dice.js -o dice.min.js --mangle",
-    "watch": "watch -p dice.css -p dice.js -c \"npm run build\""
+    "build:js": "minify dice.js -o dice.min.js --mangle"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/colinbate/color-dice.git"
+    "url": "https://github.com/colinbate/color-dice.git"
   },
   "keywords": [
     "dice",
@@ -56,9 +55,8 @@
   },
   "homepage": "https://github.com/colinbate/color-dice#readme",
   "devDependencies": {
-    "babel-minify": "^0.4.3",
-    "csso-cli": "^1.1.0",
-    "watch-cli": "^0.2.3",
-    "serve": "^9.6.0"
+    "babel-minify": "^0.5.1",
+    "csso-cli": "^3.0.0",
+    "serve": "^11.3.0"
   }
 }
