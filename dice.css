@@ -22,7 +22,7 @@
 }
 
 #board.init::before {
-  content: "Tap to roll dice.";
+  content: "Tap table to roll dice.";
   position: absolute;
   font-size: 7vw;
   width: 100%;
@@ -31,7 +31,7 @@
   color: rgba(0, 0, 0, 0.5)
 }
 #board.init::after {
-  content: "Shift-click or long press a die to lock it";
+  content: "Tap a die to lock it";
   position: absolute;
   font-size: 5vw;
   width: 100%;
@@ -40,8 +40,26 @@
   color: rgba(0, 0, 0, 0.5)
 }
 
+#sums {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  -webkit-border-top-left-radius: 0.5rem;
+  -moz-border-radius-topleft: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.t-dot #sums {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
 .die {
-  background-color: #fff;
   width: 50vmin;
   height: 50vmin;
   border-radius: 0.75vmin;
@@ -72,6 +90,24 @@
   box-shadow: 1vmin 1vmin 8vmin 0 rgba(0,0,0,0.7),
               inset -0.5vmin -0.5vmin 2vmin 0 rgba(0,0,0,0.1);
 }
+
+.bg-white .die {
+  background-color: #fff;
+}
+
+.bg-blue .die {
+  background-color: skyblue;
+}
+
+.bg-red .die {
+  background-color: lightcoral;
+}
+
+.bg-green .die {
+  background-color: mediumaquamarine;
+}
+
+
 
 .d-2 .die,
 .d-3 .die,
@@ -374,6 +410,10 @@ body.hide .die:not(.lock) {
   transition: transform 0.3s ease-in-out;
 }
 
+.bg-white button[value="white"],
+.bg-blue button[value="blue"],
+.bg-red button[value="red"],
+.bg-green button[value="green"],
 .t-dot button[value="dot"],
 .t-color button[value="color"],
 .t-cna button[value="cna"],

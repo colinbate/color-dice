@@ -32,6 +32,14 @@ function triggerLocalRolls() {
 const board = document.getElementById('board');
 const nav = document.getElementById('nav');
 const hamburger = document.getElementById('hamb');
+const sumTotalEl = document.getElementById('sum-total');
+const sumLockedEl = document.getElementById('sum-locked');
+const sums = { total: 0, locked: 0 };
+
+function renderSums() {
+  sumTotalEl.textContent = sums.total;
+  sumLockedEl.textContent = sums.locked;
+}
 
 hamburger.addEventListener(CLICK, function(ev) {
   nav.classList.toggle('is-active');
@@ -50,15 +58,21 @@ function setClassOfType(el, className, typePrefix) {
 
 function setRandomSide(el) {
   if (!el.classList.contains(LOCK)) {
-    el.className = 'die ' + randSide() + ' ' + randDegree();
+    const side = randSide();
+    const num = parseInt(side.replace('n', ''), 10);
+    sums.total += num;
+    el.className = 'die ' + side + ' ' + randDegree();
+    el.dieVal = num;
   }
 }
 
 const diceSet = [];
 function setRandomSides() {
+  sums.total = sums.locked;
   for (let d = 0; d < diceSet.length; d += 1) {
     setRandomSide(diceSet[d]);
   }
+  renderSums();
 }
 
 function clearDice() {
@@ -66,6 +80,8 @@ function clearDice() {
   for (let k = 0; k < locked.length; k += 1) {
     locked[k].classList.remove(LOCK);
   }
+  sums.total = sums.locked = 0;
+  renderSums();
   document.body.classList.add(HIDE);
 }
 
@@ -87,17 +103,14 @@ function rollDice() {
   }
 }
 
-let longPressed = false;
 function lockingDie(ev) {
-  if (ev.target && ev.target.classList.contains('die') && (ev.shiftKey || ev.type === 'long-press')) {
+  if (ev.target && ev.target.classList.contains('die')) {
     if (!ev.target.classList.contains('degx')) {
       setClassOfType(ev.target, 'degx', 'deg');
     }
+    sums.locked += (ev.target.classList.contains(LOCK) ? -1 : 1) * ev.target.dieVal;
     ev.target.classList.toggle(LOCK);
-    return true;
-  }
-  if (longPressed) {
-    longPressed = false;
+    renderSums();
     return true;
   }
   return false;
@@ -194,36 +207,10 @@ function lazyLoadStyles(file) {
   document.body.appendChild(link);
 }
 
-function lazyLoadScript(file, cb) {
-  const scr = document.createElement('script');
-  scr.src = file;
-  scr.onload = cb;
-  document.body.appendChild(scr);
-}
-
-function detectTouch() {
-  if (typeof window !== 'undefined') {
-    return 'ontouchstart' in window ||
-      window.navigator.maxTouchPoints > 0 ||
-      window.navigator.msMaxTouchPoints > 0 ||
-      (window.DocumentTouch && document instanceof DocumentTouch);
-  }
-}
-
 prefs.load();
 createDice();
 setTimeout(function () {
   lazyLoadStyles('icon-dice.css');
-  if (detectTouch()) {
-    lazyLoadScript('long-press.min.js', function() {
-      board.addEventListener('long-press', function(ev) {
-        lockingDie(ev);
-        longPressed = true;
-        ev.stopPropagation();
-        ev.preventDefault();
-      });
-    });
-  }
 }, 0);
 
 }());

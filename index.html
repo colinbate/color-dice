@@ -19,7 +19,6 @@
     padding: 0;
     margin: 0;
   }
-
   body {
     color: #000;
     background-color: #e8cd97;
@@ -143,7 +142,7 @@
   </style>
   <link rel="stylesheet" href="dice.min.css">
 </head>
-<body class="hide t-dot d-1">
+<body class="hide t-dot d-1 bg-white">
   <div class="click">
     <nav id="nav">
       <div class="menu" id="menu">
@@ -163,6 +162,10 @@
         <div data-prefix="t-" class="b4">
           <button type="button" value="dot">Standard</button> <button type="button" value="color">Colors</button> <button type="button" value="cna">Crown &amp; Anchor</button> <button type="button" value="poker">Poker</button>
         </div>
+        <div>Color</div>
+        <div data-prefix="bg-" class="b4">
+          <button type="button" value="white">White</button> <button type="button" value="blue">Blue</button> <button type="button" value="red">Red</button> <button type="button" value="green">Green</button>
+        </div>
         <div>&nbsp;</div>
         <div class="b1">
           <button type="button" id="clear">Clear dice</button>
@@ -175,6 +178,7 @@
       </button>
     </nav>
     <section id="board" class="init"></section>
+    <div id="sums">Σ <span id="sum-total">0</span> (🔒 <span id="sum-locked">0</span>)</div>
   </div>
   <template id="color-die">
     <div class="die">
@@ -203,13 +207,38 @@
   </template>
   <script src="dice.min.js"></script>
   <script type="text/javascript">
-    if('serviceWorker' in navigator) {
-        navigator.serviceWorker
-            .register(window.location.href + 'service-worker.js')
-            .then(function() { 
-                console.log('Service Worker Registered'); 
-        });
-    }
+    const isUpdateAvailable = new Promise(resolve => {
+      if (!('serviceWorker' in navigator)) {
+        resolve(false);
+        return;
+      }
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => {
+          reg.onupdatefound = () => {
+            const installingWorker = reg.installing;
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed') {
+                if (navigator.serviceWorker.controller) {
+                  resolve(true);
+                } else {
+                  resolve(false);
+                }
+              }
+            };
+          };
+        })
+        .catch(err => console.error('[SW ERROR]', err));
+    });
+    isUpdateAvailable.then(avail => {
+      if (avail && window) {
+        setTimeout(() => {
+          const reload = window.location.hostname === 'localhost' ? true : confirm('New Update Available! Reload?');
+          if (reload) {
+            window.location.reload();
+          }
+        }, 1);
+      }
+    });
   </script>
 </body>
 </html>
