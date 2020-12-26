@@ -63,3 +63,5 @@ typings/
 *.min.css
 *.min.js
 !long-press.min.js
+
+dist

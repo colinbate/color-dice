@@ -5,9 +5,10 @@
   "main": "dice.js",
   "scripts": {
     "start": "serve",
-    "build": "npm run build:css && npm run build:js",
-    "build:css": "csso dice.css -o dice.min.css",
-    "build:js": "minify dice.js -o dice.min.js --mangle"
+    "build": "npm run build:copy && npm run build:css && npm run build:js",
+    "build:copy": "copyfiles index.html service-worker.js manifest.json icon-dice.css wood.jpg \"icons/**/*\" dist",
+    "build:css": "csso dice.css -o dist/dice.min.css",
+    "build:js": "minify dice.js -o dist/dice.min.js --mangle"
   },
   "repository": {
     "type": "git",
@@ -21,27 +22,13 @@
   ],
   "author": "Colin Bate <colin@colinbate.com>",
   "license": "ISC",
-  "now": {
-    "type": "static",
-    "name": "color-dice",
-    "alias": "dice.cbate.com",
-    "files": [
-      "index.html",
-      "icons",
-      "manifest.json",
-      "service-worker.js",
-      "wood.jpg",
-      "dice.min.css",
-      "dice.min.js",
-      "icon-dice.css"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/colinbate/color-dice/issues"
   },
   "homepage": "https://github.com/colinbate/color-dice#readme",
   "devDependencies": {
     "babel-minify": "^0.5.1",
+    "copyfiles": "^2.4.1",
     "csso-cli": "^3.0.0",
     "serve": "^11.3.2"
   }
