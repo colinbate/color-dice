@@ -316,27 +316,51 @@ body.hide .die:not(.lock) {
   height: 90%;
 }
 
-.t-color .die.n1 .color {
+.t-color.cs-orig .die.n1 .color {
   background-color: orange;
 }
 
-.t-color .die.n2 .color {
+.t-color.cs-orig .die.n2 .color {
   background-color: #39f;
 }
 
-.t-color .die.n3 .color {
+.t-color.cs-orig .die.n3 .color {
   background-color: yellow;
 }
 
-.t-color .die.n4 .color {
+.t-color.cs-orig .die.n4 .color {
   background-color: pink;
 }
 
-.t-color .die.n5 .color {
+.t-color.cs-orig .die.n5 .color {
   background-color: red;
 }
 
-.t-color .die.n6 .color {
+.t-color.cs-orig .die.n6 .color {
+  background-color: white;
+}
+
+.t-color.cs-bb .die.n1 .color {
+  background-color: #636;
+}
+
+.t-color.cs-bb .die.n2 .color {
+  background-color: #39f;
+}
+
+.t-color.cs-bb .die.n3 .color {
+  background-color: #bd3;
+}
+
+.t-color.cs-bb .die.n4 .color {
+  background-color: #369;
+}
+
+.t-color.cs-bb .die.n5 .color {
+  background-color: black;
+}
+
+.t-color.cs-bb .die.n6 .color {
   background-color: white;
 }
 
@@ -377,12 +401,24 @@ body.hide .die:not(.lock) {
   width: 100%;
 }
 
+.menu .b2 button {
+  width: 49%;
+}
+
 .menu .b4 button {
   width: 24%;
 }
 
 .menu .b9 button {
    width: 10%;
+}
+
+.menu .only-cs {
+  display: none;
+}
+
+.t-color .only-cs {
+  display: block;
 }
 
 @media screen and (min-width: 720px) {
@@ -410,6 +446,8 @@ body.hide .die:not(.lock) {
   transition: transform 0.3s ease-in-out;
 }
 
+.cs-orig button[value="orig"],
+.cs-bb button[value="bb"],
 .bg-white button[value="white"],
 .bg-blue button[value="blue"],
 .bg-red button[value="red"],

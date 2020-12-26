@@ -142,7 +142,7 @@
   </style>
   <link rel="stylesheet" href="dice.min.css">
 </head>
-<body class="hide t-dot d-1 bg-white">
+<body class="hide t-dot d-1 bg-white cs-orig">
   <div class="click">
     <nav id="nav">
       <div class="menu" id="menu">
@@ -162,7 +162,11 @@
         <div data-prefix="t-" class="b4">
           <button type="button" value="dot">Standard</button> <button type="button" value="color">Colors</button> <button type="button" value="cna">Crown &amp; Anchor</button> <button type="button" value="poker">Poker</button>
         </div>
-        <div>Color</div>
+        <div class="only-cs">Color Set</div>
+        <div data-prefix="cs-" class="b2 only-cs">
+          <button type="button" value="orig">Original</button> <button type="button" value="bb">Balance Buddies</button>
+        </div>
+        <div>Base Dice Color</div>
         <div data-prefix="bg-" class="b4">
           <button type="button" value="white">White</button> <button type="button" value="blue">Blue</button> <button type="button" value="red">Red</button> <button type="button" value="green">Green</button>
         </div>
