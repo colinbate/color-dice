@@ -43,6 +43,6 @@
   "devDependencies": {
     "babel-minify": "^0.5.1",
     "csso-cli": "^3.0.0",
-    "serve": "^11.3.1"
+    "serve": "^11.3.2"
   }
 }
