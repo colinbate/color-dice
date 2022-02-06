@@ -1,14 +1,15 @@
 {
   "name": "color-dice",
-  "version": "6.1.0",
+  "version": "6.2.0",
+  "private": true,
   "description": "A small app to replace the lost colour die that came with a board game.",
   "main": "dice.js",
   "scripts": {
-    "start": "serve",
-    "build": "npm run build:copy && npm run build:css && npm run build:js",
-    "build:copy": "copyfiles index.html service-worker.js manifest.json icon-dice.css wood.jpg \"icons/**/*\" dist",
-    "build:css": "csso dice.css -o dist/dice.min.css",
-    "build:js": "minify dice.js -o dist/dice.min.js --mangle"
+    "start": "npm run build && sirv dist --dev -m 0",
+    "build": "npm run build:copy && npm run build:src",
+    "build:copy": "ncp public dist",
+    "build:src": "esbuild src/dice.* --minify --outdir=dist --target=chrome58",
+    "build:watch": "esbuild src/dice.* --outdir=dist --target=chrome58 --watch"
   },
   "repository": {
     "type": "git",
@@ -21,15 +22,14 @@
     "games"
   ],
   "author": "Colin Bate <colin@colinbate.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/colinbate/color-dice/issues"
   },
   "homepage": "https://github.com/colinbate/color-dice#readme",
   "devDependencies": {
-    "babel-minify": "^0.5.1",
-    "copyfiles": "^2.4.1",
-    "csso-cli": "^3.0.0",
-    "serve": "^11.3.2"
+    "esbuild": "^0.14.18",
+    "ncp": "^2.0.0",
+    "sirv-cli": "^2.0.2"
   }
 }

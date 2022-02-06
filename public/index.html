@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dice</title>
   <meta name="theme-color" content="#f7d7a6" />
-  <meta name="description" content="A simple dice rolling app with support for one or two dice.">
+  <meta name="description" content="A simple dice (d6) rolling app with support for up to nine dice of various styles.">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/ios/ios-appicon-180-180.png">
   <link rel="apple-touch-startup-image" sizes="750x1334" href="/icons/ios/ios-landingpage-750-1334.png" />
@@ -141,7 +141,7 @@
     transition: transform 0.3s ease-in-out;
   }
   </style>
-  <link rel="stylesheet" href="dice.min.css">
+  <link rel="stylesheet" href="dice.css">
 </head>
 <body class="hide t-dot d-1 bg-white cs-orig">
   <div class="click">
@@ -172,8 +172,9 @@
           <button type="button" value="white">White</button> <button type="button" value="blue">Blue</button> <button type="button" value="red">Red</button> <button type="button" value="green">Green</button>
         </div>
         <div>&nbsp;</div>
-        <div class="b1">
+        <div class="b2">
           <button type="button" id="clear">Clear dice</button>
+          <button type="button" id="unlock" disabled>Unlock all dice</button>
         </div>
       </div>
       <button class="hamburger" id="hamb" type="button">
@@ -210,7 +211,7 @@
       <div class="icon"></div>
     </div>
   </template>
-  <script src="dice.min.js"></script>
+  <script src="dice.js"></script>
   <script type="text/javascript">
     const isUpdateAvailable = new Promise(resolve => {
       if (!('serviceWorker' in navigator)) {

@@ -34,11 +34,17 @@ const nav = document.getElementById('nav');
 const hamburger = document.getElementById('hamb');
 const sumTotalEl = document.getElementById('sum-total');
 const sumLockedEl = document.getElementById('sum-locked');
+const unlockBtn = document.getElementById('unlock');
 const sums = { total: 0, locked: 0 };
 
 function renderSums() {
   sumTotalEl.textContent = sums.total;
   sumLockedEl.textContent = sums.locked;
+  if (sums.locked) {
+    unlockBtn.removeAttribute('disabled');
+  } else {
+    unlockBtn.setAttribute('disabled', '');
+  }
 }
 
 hamburger.addEventListener(CLICK, function(ev) {
@@ -72,6 +78,15 @@ function setRandomSides() {
   for (let d = 0; d < diceSet.length; d += 1) {
     setRandomSide(diceSet[d]);
   }
+  renderSums();
+}
+
+function unlockDice() {
+  const locked = board.querySelectorAll('.die.' + LOCK);
+  for (let k = 0; k < locked.length; k += 1) {
+    locked[k].classList.remove(LOCK);
+  }
+  sums.locked = 0;
   renderSums();
 }
 
@@ -185,6 +200,8 @@ menu.addEventListener(CLICK, function(ev) {
   const target = ev.target;
   if (target.id === 'clear') {
     clearDice();
+  } else if (target.id === 'unlock') {
+    unlockDice();
   } else if (target.value) {
     const prefix = target.parentElement.dataset.prefix;
     const klass = prefix + target.value;

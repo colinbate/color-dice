@@ -5,6 +5,7 @@
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-user-select: none;
   -webkit-touch-callout: none;
+  user-select: none;
 }
 
 #board {
@@ -19,6 +20,7 @@
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-user-select: none;
   -webkit-touch-callout: none;
+  user-select: none;
 }
 
 #board.init::before {
@@ -391,6 +393,11 @@ body.hide .die:not(.lock) {
   background-color: lightskyblue;
   color: #000;
   font-size: 3vw;
+}
+
+.menu button[disabled] {
+  background-color: lightgrey;
+  cursor: not-allowed;
 }
 
 .menu button:focus {
