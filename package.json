@@ -1,15 +1,12 @@
 {
   "name": "color-dice",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "private": true,
   "description": "A small app to replace the lost colour die that came with a board game.",
   "main": "dice.js",
   "scripts": {
-    "start": "npm run build && sirv dist --dev -m 0",
-    "build": "npm run build:copy && npm run build:src",
-    "build:copy": "ncp public dist",
-    "build:src": "esbuild src/dice.* --minify --outdir=dist --target=chrome58",
-    "build:watch": "esbuild src/dice.* --outdir=dist --target=chrome58 --watch"
+    "start": "esbuild src/dice.* --outdir=public --target=chrome58 --servedir=public",
+    "build": "esbuild src/dice.* --minify --outdir=public --target=chrome58"
   },
   "repository": {
     "type": "git",
@@ -26,10 +23,8 @@
   "bugs": {
     "url": "https://github.com/colinbate/color-dice/issues"
   },
-  "homepage": "https://github.com/colinbate/color-dice#readme",
+  "homepage": "https://dice.cbate.com",
   "devDependencies": {
-    "esbuild": "^0.14.18",
-    "ncp": "^2.0.0",
-    "sirv-cli": "^2.0.2"
+    "esbuild": "^0.14.18"
   }
 }

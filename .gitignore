@@ -64,4 +64,5 @@ typings/
 *.min.js
 !long-press.min.js
 
-dist
+public/dice.js
+public/dice.css
